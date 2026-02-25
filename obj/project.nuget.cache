@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "dgSpecHash": "SX/byvo1Z50=",
+  "success": true,
+  "projectFilePath": "/home/desarrollo/Documentos/script_salvavidas/script_salvavidas.csproj",
+  "expectedPackageFiles": [
+    "/home/desarrollo/.nuget/packages/itext/9.5.0/itext.9.5.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/itext.commons/9.5.0/itext.commons.9.5.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/itext7/9.5.0/itext7.9.5.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.dotnet.platformabstractions/1.1.0/microsoft.dotnet.platformabstractions.1.1.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.dependencyinjection/5.0.0/microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.dependencymodel/1.1.0/microsoft.extensions.dependencymodel.1.1.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.logging/5.0.0/microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/newtonsoft.json/9.0.1/newtonsoft.json.9.0.1.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/system.security.cryptography.pkcs/6.0.5/system.security.cryptography.pkcs.6.0.5.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/system.security.cryptography.xml/6.0.2/system.security.cryptography.xml.6.0.2.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "El paquete \"Newtonsoft.Json\" 9.0.1 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "projectPath": "/home/desarrollo/Documentos/script_salvavidas/script_salvavidas.csproj",
+      "warningLevel": 1,
+      "filePath": "/home/desarrollo/Documentos/script_salvavidas/script_salvavidas.csproj",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
