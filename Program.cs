@@ -28,8 +28,7 @@ class Program
   static void RecursiveWalk(string currentPath)
   {
     try
-    {
-      
+    {      
       var pdfFiles = Directory.EnumerateFiles(currentPath, "*.*")
           .Where(f => f.ToLower().EndsWith(".pdf")).ToList();
       Console.WriteLine($"📂 {currentPath} ({pdfFiles.Count} archivos)");
