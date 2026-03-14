@@ -38,3 +38,12 @@
 /home/desarrollo/Documentos/script_salvavidas/obj/Debug/net10.0/script_salvavidas.pdb
 /home/desarrollo/Documentos/script_salvavidas/obj/Debug/net10.0/script_salvavidas.genruntimeconfig.cache
 /home/desarrollo/Documentos/script_salvavidas/obj/Debug/net10.0/ref/script_salvavidas.dll
+/home/desarrollo/Documentos/script_salvavidas/obj/Debug/net10.0/script_salvavidas.sourcelink.json
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/ClosedXML.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/ClosedXML.Parser.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/DocumentFormat.OpenXml.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/DocumentFormat.OpenXml.Framework.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/ExcelNumberFormat.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/RBush.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/SixLabors.Fonts.dll
+/home/desarrollo/Documentos/script_salvavidas/bin/Debug/net10.0/System.IO.Packaging.dll

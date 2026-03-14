@@ -1,9 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "SX/byvo1Z50=",
+  "dgSpecHash": "956OMZt/mMs=",
   "success": true,
   "projectFilePath": "/home/desarrollo/Documentos/script_salvavidas/script_salvavidas.csproj",
   "expectedPackageFiles": [
+    "/home/desarrollo/.nuget/packages/closedxml/0.105.0/closedxml.0.105.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/closedxml.parser/2.0.0/closedxml.parser.2.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/documentformat.openxml/3.1.1/documentformat.openxml.3.1.1.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/documentformat.openxml.framework/3.1.1/documentformat.openxml.framework.3.1.1.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/excelnumberformat/1.1.0/excelnumberformat.1.1.0.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/itext/9.5.0/itext.9.5.0.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/itext.commons/9.5.0/itext.commons.9.5.0.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/itext7/9.5.0/itext7.9.5.0.nupkg.sha512",
@@ -16,6 +21,9 @@
     "/home/desarrollo/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/newtonsoft.json/9.0.1/newtonsoft.json.9.0.1.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/rbush.signed/4.0.0/rbush.signed.4.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/sixlabors.fonts/1.0.0/sixlabors.fonts.1.0.0.nupkg.sha512",
+    "/home/desarrollo/.nuget/packages/system.io.packaging/8.0.1/system.io.packaging.8.0.1.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/system.security.cryptography.pkcs/6.0.5/system.security.cryptography.pkcs.6.0.5.nupkg.sha512",
     "/home/desarrollo/.nuget/packages/system.security.cryptography.xml/6.0.2/system.security.cryptography.xml.6.0.2.nupkg.sha512"
   ],
