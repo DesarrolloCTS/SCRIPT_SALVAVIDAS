@@ -139,30 +139,45 @@ class Program
 
       Console.WriteLine($"🔎 [{contador}/{total}] {nombreExcel}");
 
-      if (indicePdf.ContainsKey(nombre))
+      // 🚫 Ignorar nombres muy cortos (evita basura tipo "15")
+      if (nombre.Length < 5)
       {
-        var rutas = indicePdf[nombre];
+        Console.WriteLine("   ⚠ Ignorado (muy corto)");
+        continue;
+      }
 
-        row.Cell(colRuta).Value = string.Join(",", rutas);
+      var palabras = nombre.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-        foreach (var ruta in rutas)
-        {
-          pdfsUsados.Add(ruta);
+      var coincidencias = indicePdf
+          .Where(kvp => palabras.All(p => kvp.Key.Contains(p)))
+          .SelectMany(kvp => kvp.Value)
+          .ToList();
 
-          string carpeta = NormalizarRuta(Path.GetDirectoryName(ruta));
+      if (coincidencias.Any())
+      {
+        // ✅ Elegir SOLO 1 (evita error de 32k caracteres)
+        var rutaElegida = coincidencias
+            .OrderBy(r => Math.Abs(
+                Path.GetFileNameWithoutExtension(r).Length - nombre.Length))
+            .First();
 
-          var registro = new Dictionary<string, string>();
+        row.Cell(colRuta).Value = rutaElegida;
 
-          for (int i = 0; i < encabezados.Count; i++)
-            registro[encabezados[i]] = row.Cell(i + 1).GetString();
+        pdfsUsados.Add(rutaElegida);
 
-          registro["RUTA_PDF"] = ruta;
+        string carpeta = NormalizarRuta(Path.GetDirectoryName(rutaElegida));
 
-          if (!cargas.ContainsKey(carpeta))
-            cargas[carpeta] = new List<Dictionary<string, string>>();
+        var registro = new Dictionary<string, string>();
 
-          cargas[carpeta].Add(registro);
-        }
+        for (int i = 0; i < encabezados.Count; i++)
+          registro[encabezados[i]] = row.Cell(i + 1).GetString();
+
+        registro["RUTA_PDF"] = rutaElegida;
+
+        if (!cargas.ContainsKey(carpeta))
+          cargas[carpeta] = new List<Dictionary<string, string>>();
+
+        cargas[carpeta].Add(registro);
 
         Console.WriteLine("   ✅ Encontrado");
       }
@@ -191,21 +206,18 @@ class Program
       if (File.Exists(path))
         File.Delete(path);
 
-      // nombre de la última carpeta
-      string nombreHoja = new DirectoryInfo(carpeta).Name;
+      string nombreHoja = LimpiarNombreHoja(new DirectoryInfo(carpeta).Name);
 
       using (var wb = new XLWorkbook())
       {
         var ws = wb.AddWorksheet(nombreHoja);
 
-        // quitar RUTA_PDF
         var headers = registros
             .First()
             .Keys
             .Where(h => h != "RUTA_PDF")
             .ToList();
 
-        // escribir encabezados
         for (int i = 0; i < headers.Count; i++)
           ws.Cell(1, i + 1).Value = headers[i];
 
@@ -217,10 +229,10 @@ class Program
 
           foreach (var h in headers)
           {
-            if (reg.ContainsKey(h) && !string.IsNullOrWhiteSpace(reg[h]))
-              ws.Cell(fila, col).Value = reg[h];
-            else
-              ws.Cell(fila, col).Value = "N/A";
+            ws.Cell(fila, col).Value =
+                reg.ContainsKey(h) && !string.IsNullOrWhiteSpace(reg[h])
+                ? reg[h]
+                : "N/A";
 
             col++;
           }
@@ -264,7 +276,7 @@ class Program
       {
         var ws = wb.AddWorksheet("VERIFICAR");
 
-        ws.Cell(1, 1).Value = "Nombre_Archivo";
+        ws.Cell(1, 1).Value = "ARCHIVO";
         ws.Cell(1, 2).Value = "Ruta";
 
         int fila = 2;
@@ -326,11 +338,7 @@ class Program
     if (string.IsNullOrWhiteSpace(ruta))
       return "";
 
-    return Path.GetFullPath(ruta)
-        .Trim()
-        .TrimEnd('\\')
-        .Replace("/", "\\")
-        .ToUpper();
+    return Path.GetFullPath(ruta).Trim();
   }
 
   static string Limpiar(string texto)
@@ -360,5 +368,23 @@ class Program
     }
 
     return sb.ToString().Normalize(NormalizationForm.FormC);
+  }
+
+  static string LimpiarNombreHoja(string nombre)
+  {
+    if (string.IsNullOrWhiteSpace(nombre))
+      return "HOJA";
+
+    char[] invalidos = { '\\', '/', '?', '*', '[', ']', ':' };
+
+    foreach (var c in invalidos)
+      nombre = nombre.Replace(c.ToString(), "");
+
+    nombre = nombre.Trim();
+
+    if (nombre.Length > 31)
+      nombre = nombre.Substring(0, 31);
+
+    return string.IsNullOrWhiteSpace(nombre) ? "HOJA" : nombre;
   }
 }

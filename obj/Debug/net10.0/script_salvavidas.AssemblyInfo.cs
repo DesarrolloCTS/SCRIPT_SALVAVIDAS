@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("script_salvavidas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e54d4ba41a1581024867d5449f09fb608649fa81")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c63db2d5cea00663279ec14bd3d23f74f0ec9b76")]
 [assembly: System.Reflection.AssemblyProductAttribute("script_salvavidas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("script_salvavidas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
