@@ -1,211 +1,66 @@
-﻿// using System;
-// using System.IO;
-// using System.Linq;
-// using System.Text;
-// using System.Collections.Generic;
-// using iText.Kernel.Pdf;
-
-// class Program
-// {
-
-//   static string rootPath = "/media/desarrollo/HD710 PRO/DISCO 2 V2 final";
-
-//   static void Main(string[] args)
-//   {
-//     Console.WriteLine("🚀 Iniciando proceso de escaneo...");
-
-//     if (!Directory.Exists(rootPath))
-//     {
-//       Console.WriteLine($"❌ Error: La ruta {rootPath} no existe.");
-//       return;
-//     }
-//     RecursiveWalk(rootPath);
-//     Console.WriteLine("\n✅ Proceso finalizado con éxito.");
-//   }
-
-//   static void RecursiveWalk(string currentPath)
-//   {
-//     try
-//     {      
-//       var pdfFiles = Directory.EnumerateFiles(currentPath, "*.*")
-//           .Where(f => f.ToLower().EndsWith(".pdf")).ToList();
-//       Console.WriteLine($"📂 {currentPath} ({pdfFiles.Count} archivos)");
-//       Console.WriteLine($"  {string.Join("\n  ", pdfFiles)}");
-//       if (pdfFiles.Any())
-//       {
-//         ExportToCsv(currentPath, pdfFiles);
-//       }
-
-
-//       foreach (string subDir in Directory.EnumerateDirectories(currentPath))
-//       {
-//         RecursiveWalk(subDir);
-//       }
-//     }
-//     catch (UnauthorizedAccessException) {}
-//     catch (Exception ex) { Console.WriteLine($"⚠️ Error en {currentPath}: {ex.Message}"); }
-//   }
-
-//   static void ExportToCsv(string folderPath, List<string> files)
-//   {
-//     string csvPath = Path.Combine(folderPath, "CARGA_SCRIPT.csv");
-//     string relativePath = Path.GetRelativePath(rootPath, folderPath);
-//     string[] levels = relativePath == "." ? new string[] { "Raiz" } : relativePath.Split(Path.DirectorySeparatorChar);
-
-//     using (var sw = new StreamWriter(csvPath, false, Encoding.UTF8))
-//     {
-
-//       StringBuilder header = new StringBuilder();
-//       for (int i = 0; i < levels.Length; i++) header.Append($"Nivel_{i + 1};");
-//       header.Append("Nombre_Archivo;Paginas");
-//       sw.WriteLine(header.ToString());
-
-//       foreach (var file in files)
-//       {
-//         int pgs = GetPages(file);
-//         string fileName = Path.GetFileName(file);
-//         string rowPath = string.Join(";", levels);
-
-//         sw.WriteLine($"{rowPath};{fileName};{pgs}");
-//       }
-//     }
-//     Console.WriteLine($"=====================[CARGA_SCRIPT] creado en: {folderPath} ({files.Count} archivos)");
-//   }
-
-//   static int GetPages(string path)
-//   {
-//     try
-//     {
-//       using (var reader = new PdfReader(path))
-//       using (var pdfDoc = new PdfDocument(reader))
-//       {
-//         return pdfDoc.GetNumberOfPages();
-//       }
-//     }
-//     catch { return 0; } 
-//   }
-// }
-// using System;
-// using System.IO;
-// using System.Linq;
-// using System.Text;
-// using System.Collections.Generic;
-// using iText.Kernel.Pdf;
-
-// class Program
-// {
-
-//   static string rootPath = "/media/desarrollo/HD710 PRO/DISCO 2 V2 final";
-
-//   static void Main(string[] args)
-//   {
-//     Console.WriteLine("🚀 Iniciando proceso de escaneo...");
-
-//     if (!Directory.Exists(rootPath))
-//     {
-//       Console.WriteLine($"❌ Error: La ruta {rootPath} no existe.");
-//       return;
-//     }
-//     RecursiveWalk(rootPath);
-//     Console.WriteLine("\n✅ Proceso finalizado con éxito.");
-//   }
-
-//   static void RecursiveWalk(string currentPath)
-//   {
-//     try
-//     {      
-//       var pdfFiles = Directory.EnumerateFiles(currentPath, "*.*")
-//           .Where(f => f.ToLower().EndsWith(".pdf")).ToList();
-//       Console.WriteLine($"📂 {currentPath} ({pdfFiles.Count} archivos)");
-//       Console.WriteLine($"  {string.Join("\n  ", pdfFiles)}");
-//       if (pdfFiles.Any())
-//       {
-//         ExportToCsv(currentPath, pdfFiles);
-//       }
-
-
-//       foreach (string subDir in Directory.EnumerateDirectories(currentPath))
-//       {
-//         RecursiveWalk(subDir);
-//       }
-//     }
-//     catch (UnauthorizedAccessException) {}
-//     catch (Exception ex) { Console.WriteLine($"⚠️ Error en {currentPath}: {ex.Message}"); }
-//   }
-
-//   static void ExportToCsv(string folderPath, List<string> files)
-//   {
-//     string csvPath = Path.Combine(folderPath, "CARGA_SCRIPT.csv");
-//     string relativePath = Path.GetRelativePath(rootPath, folderPath);
-//     string[] levels = relativePath == "." ? new string[] { "Raiz" } : relativePath.Split(Path.DirectorySeparatorChar);
-
-//     using (var sw = new StreamWriter(csvPath, false, Encoding.UTF8))
-//     {
-
-//       StringBuilder header = new StringBuilder();
-//       for (int i = 0; i < levels.Length; i++) header.Append($"Nivel_{i + 1};");
-//       header.Append("Nombre_Archivo;Paginas");
-//       sw.WriteLine(header.ToString());
-
-//       foreach (var file in files)
-//       {
-//         int pgs = GetPages(file);
-//         string fileName = Path.GetFileName(file);
-//         string rowPath = string.Join(";", levels);
-
-//         sw.WriteLine($"{rowPath};{fileName};{pgs}");
-//       }
-//     }
-//     Console.WriteLine($"=====================[CARGA_SCRIPT] creado en: {folderPath} ({files.Count} archivos)");
-//   }
-
-//   static int GetPages(string path)
-//   {
-//     try
-//     {
-//       using (var reader = new PdfReader(path))
-//       using (var pdfDoc = new PdfDocument(reader))
-//       {
-//         return pdfDoc.GetNumberOfPages();
-//       }
-//     }
-//     catch { return 0; } 
-//   }
-// }
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Globalization;
 using System.Text;
+using System.Globalization;
 using System.Collections.Generic;
 using ClosedXML.Excel;
 
 class Program
 {
-  static string rootPath = @"/media/desarrollo/HD710 PRO/DISCO 2 V2 final";
-  static string excelPath = @"/media/desarrollo/HD710 PRO/bases final final/DISCO 0002 FINAL Val-2 14-1-2020.xlsx";
+  static string rootPath = @"/media/desarrollo/HD710 PRO/DISCO 3 V2 final/Nueva carpeta/OTROS";
+  static string excelPath = @"/media/desarrollo/HD710 PRO/bases final final/DISCO 0003 MODIFICADO VA-1.xlsx";
 
-  static Dictionary<string, List<string>> cargas = new();
-  static Dictionary<string, List<string>> indicePdf = new();
+  static Dictionary<string, List<string>> indicePdf =
+      new(StringComparer.OrdinalIgnoreCase);
+
+  static Dictionary<string, List<string>> pdfsPorCarpeta =
+      new(StringComparer.OrdinalIgnoreCase);
+
+  static Dictionary<string, List<Dictionary<string, string>>> cargas =
+      new(StringComparer.OrdinalIgnoreCase);
+
+  static HashSet<string> pdfsUsados = new();
 
   static void Main()
   {
-    Console.WriteLine("🚀 Iniciando proceso...\n");
+    Console.WriteLine("🚀 Iniciando proceso\n");
+
+    if (!Directory.Exists(rootPath))
+    {
+      Console.WriteLine("❌ No existe la ruta raíz");
+      return;
+    }
+
+    if (!File.Exists(excelPath))
+    {
+      Console.WriteLine("❌ No existe el Excel");
+      return;
+    }
 
     IndexarPDFs();
 
     using (var workbook = new XLWorkbook(excelPath))
     {
-      ProcessSheet(workbook, "INSURGENTES");
-      ProcessSheet(workbook, "TLAHUAC");
+      var hoja = workbook.Worksheets.FirstOrDefault();
 
-      Console.WriteLine("\n💾 Guardando Excel...");
+      if (hoja == null)
+      {
+        Console.WriteLine("❌ El Excel no tiene hojas");
+        return;
+      }
+
+      ProcessSheet(workbook, hoja.Name);
+
+      Console.WriteLine("\n💾 Guardando cambios en el Excel maestro...");
       workbook.Save();
     }
 
     CrearCargaScripts();
+    CrearCargaScriptVerificar();
+    CrearResumenGlobal();
 
-    Console.WriteLine("\n✅ Proceso terminado.");
+    Console.WriteLine("\n✅ Proceso terminado");
   }
 
   static void IndexarPDFs()
@@ -225,6 +80,13 @@ class Program
         indicePdf[nombre] = new List<string>();
 
       indicePdf[nombre].Add(file);
+
+      string carpeta = NormalizarRuta(Path.GetDirectoryName(file));
+
+      if (!pdfsPorCarpeta.ContainsKey(carpeta))
+        pdfsPorCarpeta[carpeta] = new List<string>();
+
+      pdfsPorCarpeta[carpeta].Add(file);
     }
 
     Console.WriteLine($"📊 PDFs indexados: {indicePdf.Count}\n");
@@ -242,46 +104,62 @@ class Program
       return;
     }
 
-    ws.Cell("K1").Value = "RUTA_PDF";
+    var usedRange = ws.RangeUsed();
 
-    var rows = ws.RangeUsed().RowsUsed().Skip(1).ToList();
+    if (usedRange == null)
+    {
+      Console.WriteLine("⚠ Hoja vacía");
+      return;
+    }
 
-    Console.WriteLine($"📊 Registros: {rows.Count}");
+    var encabezados = ws.Row(1)
+        .CellsUsed()
+        .Select(c => c.GetString())
+        .Where(c => !string.IsNullOrWhiteSpace(c))
+        .ToList();
 
+    int colRuta = encabezados.Count + 1;
+    ws.Cell(1, colRuta).Value = "RUTA_PDF";
+
+    var rows = usedRange.RowsUsed().Skip(1).ToList();
+
+    int total = rows.Count;
     int contador = 0;
 
     foreach (var row in rows)
     {
       contador++;
 
-      string nombreExcel = row.Cell("A").GetString();
+      string nombreExcel = row.Cell(1).GetString();
 
       if (string.IsNullOrWhiteSpace(nombreExcel))
         continue;
 
       string nombre = Limpiar(nombreExcel);
 
-      Console.WriteLine($"🔎 [{contador}/{rows.Count}] {nombre}");
+      Console.WriteLine($"🔎 [{contador}/{total}] {nombreExcel}");
 
       if (indicePdf.ContainsKey(nombre))
       {
         var rutas = indicePdf[nombre];
 
-        row.Cell("K").Value = string.Join(",", rutas);
+        row.Cell(colRuta).Value = string.Join(",", rutas);
 
         foreach (var ruta in rutas)
         {
-          string carpeta = Path.GetDirectoryName(ruta);
+          pdfsUsados.Add(ruta);
 
-          string jefatura = row.Cell("B").GetString();
-          string area = row.Cell("C").GetString();
-          string anio = row.Cell("D").GetString();
-          string archivo = row.Cell("A").GetString();
+          string carpeta = NormalizarRuta(Path.GetDirectoryName(ruta));
 
-          string registro = $"{jefatura};{area};{anio};{archivo};{ruta}";
+          var registro = new Dictionary<string, string>();
+
+          for (int i = 0; i < encabezados.Count; i++)
+            registro[encabezados[i]] = row.Cell(i + 1).GetString();
+
+          registro["RUTA_PDF"] = ruta;
 
           if (!cargas.ContainsKey(carpeta))
-            cargas[carpeta] = new List<string>();
+            cargas[carpeta] = new List<Dictionary<string, string>>();
 
           cargas[carpeta].Add(registro);
         }
@@ -290,7 +168,7 @@ class Program
       }
       else
       {
-        row.Cell("K").Value = "";
+        row.Cell(colRuta).Value = "";
         Console.WriteLine("   ❌ No encontrado");
       }
     }
@@ -300,22 +178,159 @@ class Program
 
   static void CrearCargaScripts()
   {
-    Console.WriteLine("\n📄 Creando CARGA_SCRIPT...");
+    Console.WriteLine("\n📄 Creando CARGA_SCRIPT.xlsx...");
 
     foreach (var carpeta in cargas.Keys)
     {
-      string csvPath = Path.Combine(carpeta, "CARGA_SCRIPT.csv");
+      Console.WriteLine($"📂 Carpeta destino: {carpeta}");
 
-      using (var sw = new StreamWriter(csvPath))
+      var registros = cargas[carpeta];
+
+      string path = Path.Combine(carpeta, "CARGA_SCRIPT.xlsx");
+
+      if (File.Exists(path))
+        File.Delete(path);
+
+      // nombre de la última carpeta
+      string nombreHoja = new DirectoryInfo(carpeta).Name;
+
+      using (var wb = new XLWorkbook())
       {
-        sw.WriteLine("JEFATURA;AREA;ANIO;NOMBRE_ARCHIVO;RUTA");
+        var ws = wb.AddWorksheet(nombreHoja);
 
-        foreach (var linea in cargas[carpeta])
-          sw.WriteLine(linea);
+        // quitar RUTA_PDF
+        var headers = registros
+            .First()
+            .Keys
+            .Where(h => h != "RUTA_PDF")
+            .ToList();
+
+        // escribir encabezados
+        for (int i = 0; i < headers.Count; i++)
+          ws.Cell(1, i + 1).Value = headers[i];
+
+        int fila = 2;
+
+        foreach (var reg in registros)
+        {
+          int col = 1;
+
+          foreach (var h in headers)
+          {
+            if (reg.ContainsKey(h) && !string.IsNullOrWhiteSpace(reg[h]))
+              ws.Cell(fila, col).Value = reg[h];
+            else
+              ws.Cell(fila, col).Value = "N/A";
+
+            col++;
+          }
+
+          fila++;
+        }
+
+        wb.SaveAs(path);
       }
 
-      Console.WriteLine($"✔ {csvPath}");
+      Console.WriteLine($"✔ Creado: {path}");
     }
+  }
+
+  static void CrearCargaScriptVerificar()
+  {
+    Console.WriteLine("\n🔎 Creando CARGA_SCRIPT_VERIFICAR...");
+
+    foreach (var carpeta in pdfsPorCarpeta.Keys)
+    {
+      var todos = pdfsPorCarpeta[carpeta];
+
+      var usados = new HashSet<string>();
+
+      if (cargas.ContainsKey(carpeta))
+        usados = cargas[carpeta].Select(r => r["RUTA_PDF"]).ToHashSet();
+
+      var faltantes = todos
+          .Where(p => !usados.Contains(p))
+          .ToList();
+
+      if (!faltantes.Any())
+        continue;
+
+      string path = Path.Combine(carpeta, "CARGA_SCRIPT_VERIFICAR.xlsx");
+
+      if (File.Exists(path))
+        File.Delete(path);
+
+      using (var wb = new XLWorkbook())
+      {
+        var ws = wb.AddWorksheet("VERIFICAR");
+
+        ws.Cell(1, 1).Value = "Nombre_Archivo";
+        ws.Cell(1, 2).Value = "Ruta";
+
+        int fila = 2;
+
+        foreach (var f in faltantes)
+        {
+          ws.Cell(fila, 1).Value = Path.GetFileName(f);
+          ws.Cell(fila, 2).Value = f;
+          fila++;
+        }
+
+        wb.SaveAs(path);
+      }
+
+      Console.WriteLine($"⚠ Creado verificar: {path}");
+    }
+  }
+
+  static void CrearResumenGlobal()
+  {
+    Console.WriteLine("\n📊 Generando RESUMEN_GLOBAL.xlsx");
+
+    string path = Path.Combine(rootPath, "RESUMEN_GLOBAL.xlsx");
+
+    if (File.Exists(path))
+      File.Delete(path);
+
+    int totalDisco = indicePdf.Values.Sum(x => x.Count);
+    int totalUsados = pdfsUsados.Count;
+    int totalFaltantes = totalDisco - totalUsados;
+
+    using (var wb = new XLWorkbook())
+    {
+      var ws = wb.AddWorksheet("RESUMEN");
+
+      ws.Cell(1, 1).Value = "METRICA";
+      ws.Cell(1, 2).Value = "VALOR";
+
+      ws.Cell(2, 1).Value = "PDFs en disco";
+      ws.Cell(2, 2).Value = totalDisco;
+
+      ws.Cell(3, 1).Value = "PDFs encontrados en Excel";
+      ws.Cell(3, 2).Value = totalUsados;
+
+      ws.Cell(4, 1).Value = "PDFs no referenciados en Excel";
+      ws.Cell(4, 2).Value = totalFaltantes;
+
+      ws.Cell(5, 1).Value = "Carpetas con CARGA_SCRIPT";
+      ws.Cell(5, 2).Value = cargas.Count;
+
+      wb.SaveAs(path);
+    }
+
+    Console.WriteLine($"✔ RESUMEN creado: {path}");
+  }
+
+  static string NormalizarRuta(string ruta)
+  {
+    if (string.IsNullOrWhiteSpace(ruta))
+      return "";
+
+    return Path.GetFullPath(ruta)
+        .Trim()
+        .TrimEnd('\\')
+        .Replace("/", "\\")
+        .ToUpper();
   }
 
   static string Limpiar(string texto)
@@ -323,9 +338,7 @@ class Program
     if (string.IsNullOrWhiteSpace(texto))
       return "";
 
-    texto = texto
-        .Replace('\u00A0', ' ')
-        .Trim();
+    texto = texto.Replace('\u00A0', ' ').Trim();
 
     while (texto.Contains("  "))
       texto = texto.Replace("  ", " ");
